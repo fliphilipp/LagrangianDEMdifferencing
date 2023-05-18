@@ -44,7 +44,6 @@ def inpaint_nans(array):
 
 
 def load_rema_and_velocity_data(path, fn1, fn2, velocity_data_fn, show_plot=True):
-    
     date1 = fn1[15:25]
     date2 = fn2[15:25]
 
@@ -116,8 +115,8 @@ def load_rema_and_velocity_data(path, fn1, fn2, velocity_data_fn, show_plot=True
             ys.append(YY[YA[i],XA[i]])
             us.append(vx[YA[i],XA[i]])
             vs.append(vy[YA[i],XA[i]])
-        vs = np.sqrt(np.array(us)**2 + np.array(vs)**2)
-        scale_factor = np.max((xdist,ydist)) / np.max(vs) * 0.95
+        vvs = np.sqrt(np.array(us)**2 + np.array(vs)**2)
+        scale_factor = np.max((xdist,ydist)) / np.max(vvs) * 0.95
         for i in range(len(xs)):    
             axs[1,1].arrow(xs[i], ys[i], us[i]*scale_factor, vs[i]*scale_factor, head_width=xdist/10)
 
@@ -131,7 +130,7 @@ def load_rema_and_velocity_data(path, fn1, fn2, velocity_data_fn, show_plot=True
             cbar.ax.set_ylabel('elevation (m)', rotation=270)
             ax.set_xlabel('easting (m)')
             ax.set_ylabel('northing (m)')
-        
+
         axs[0,0].text(0.5, 0.95, 'REMA %s' % date1 ,transform=axs[0,0].transAxes, ha='center', va='center', fontsize=10)
         axs[0,1].text(0.5, 0.95, 'REMA %s' % date2 ,transform=axs[0,1].transAxes, ha='center', va='center', fontsize=10)
         axs[1,0].text(0.5, 0.95, 'simple eulerian difference',transform=axs[1,0].transAxes, ha='center', va='center', fontsize=10)
